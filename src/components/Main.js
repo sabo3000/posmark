@@ -1,7 +1,17 @@
 import React from 'react'
+import styled from 'styled-components'
+import Map from './Map'
 
-const Main = () => {
-  return <h1>this is posmark</h1>
-}
+const MainSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+`
+
+const Main = (props) => (
+  <MainSection>
+    <Map />
+  </MainSection>
+)
 
 export default Main
