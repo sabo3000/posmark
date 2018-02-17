@@ -1,24 +1,29 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
-import { Header, Main } from './components'
+import { Layout, Header, Main } from './components'
+import Reboot from 'material-ui/Reboot'
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
+import blueGrey from 'material-ui/colors/blueGrey'
+import lightBlue from 'material-ui/colors/lightBlue'
+import deepOrange from 'material-ui/colors/deepOrange'
 
-const Layout = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-`
+const theme = createMuiTheme({
+  palette: {
+    primary: blueGrey,
+    secondary: lightBlue,
+    error: deepOrange
+  }
+})
 
 class App extends Component {
   render () {
     return (
-      <Layout>
-        <Header />
-        <Main />
-      </Layout>
+      <MuiThemeProvider theme={theme}>
+        <Reboot />
+        <Layout>
+          <Header />
+          <Main />
+        </Layout>
+      </MuiThemeProvider>
     )
   }
 }

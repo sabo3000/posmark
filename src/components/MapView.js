@@ -12,7 +12,7 @@ const LoaderElem = styled.div`
 `
 const apiKey = 'AIzaSyD1aeCOtB3_LSZQED20yRlqr5-HKFZWRIQ'
 
-const Map = compose(
+const MapView = compose(
   withProps({
     googleMapURL: 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=' + apiKey,
     loadingElement: <LoaderElem />,
@@ -21,13 +21,14 @@ const Map = compose(
   }),
   withScriptjs,
   withGoogleMap
-)((props) =>
+)(({positions}) =>
   <GoogleMap
     defaultZoom={14}
     defaultCenter={{ lat: 46.94, lng: 7.45 }}>
-    <Marker position={{ lat: 46.9481229, lng: 7.4472936 }} />
-    <Marker position={{ lat: 46.9397992, lng: 7.4661384 }} />
+    { positions.map(({id, lat, lng}) =>
+      <Marker key={id} position={{ lat: lat, lng: lng }} />
+    )}
   </GoogleMap>
 )
 
-export default Map
+export default MapView

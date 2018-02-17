@@ -1,28 +1,27 @@
 import React from 'react'
 import styled from 'styled-components'
-import logo from './logo.svg'
+import AppBar from 'material-ui/AppBar'
+import Toolbar from 'material-ui/Toolbar'
+import IconButton from 'material-ui/IconButton'
+import ListIcon from 'material-ui-icons/List'
+import AddLocationIcon from 'material-ui-icons/AddLocation'
 
-const StyledHeader = styled.header`
-  background-color: black;
-  color: white;
+const StyledToolbar = styled(Toolbar)`
   display: flex;
-  align-items: center;
-  padding: 10px 0;
-  img {
-    height: 40px;
-    margin-right: 10px;
-  }
-  h1{
-    padding: 0;
-    font-size: 1.2em;
-  }
+  justify-content: space-between;
 `
 
 const Header = (props) => (
-  <StyledHeader>
-    <img src={logo} alt='logo' />
-    <h1>posmark</h1>
-  </StyledHeader>
+  <AppBar position='static' color='primary'>
+    <StyledToolbar>
+      <IconButton color='inherit'>
+        <ListIcon />
+      </IconButton>
+      <IconButton color='inherit'>
+        <AddLocationIcon />
+      </IconButton>
+    </StyledToolbar>
+  </AppBar>
 )
 
 export default Header
