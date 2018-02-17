@@ -9,7 +9,7 @@ const StyledHeader = styled.header`
   align-items: center;
   padding: 10px 0;
   img {
-    height: 60px;
+    height: 40px;
     margin-right: 10px;
   }
   h1{
@@ -21,7 +21,7 @@ const StyledHeader = styled.header`
 const Header = (props) => (
   <StyledHeader>
     <img src={logo} alt='logo' />
-    <h1>posmark - position marker webapp</h1>
+    <h1>posmark</h1>
   </StyledHeader>
 )
 
