@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Layout, Header, Main } from './components'
 import '@atlaskit/css-reset'
+import './App.css'
 
 class App extends Component {
   constructor () {

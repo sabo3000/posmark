@@ -8,9 +8,6 @@ const Layout = styled.div`
   bottom: 0;
   right: 0;
   left: 0;
-  font-family: Roboto, Helvetica, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
 `
 
 export default Layout

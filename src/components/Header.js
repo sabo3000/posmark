@@ -11,7 +11,7 @@ const StyledHeader = styled.div`
   display: flex;
   justify-content: space-between;
   background: silver;
-  padding: 20px;
+  padding: 15px;
 `
 
 class Header extends PureComponent {
