@@ -6,16 +6,16 @@
     "react-scripts": "1.1.1"
   },
   "dependencies": {
-    "@atlaskit/button": "^6.6.3",
+    "@atlaskit/button": "^6.6.4",
     "@atlaskit/css-reset": "^1.2.3",
-    "@atlaskit/field-text": "^4.2.1",
+    "@atlaskit/field-text": "^4.3.0",
     "@atlaskit/modal-dialog": "^3.5.1",
     "material-ui": "^1.0.0-beta.33",
     "material-ui-icons": "^1.0.0-beta.17",
-    "react": "^16.2.0",
+    "react": "^16.3.1",
     "react-dom": "^16.2.0",
     "react-google-maps": "^9.4.5",
-    "styled-components": "^3.1.6"
+    "styled-components": "^3.2.5"
   },
   "scripts": {
     "start": "react-scripts start",

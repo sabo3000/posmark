@@ -6,6 +6,7 @@ class App extends Component {
   constructor () {
     super()
     this.state = {
+      isListDisplayed: false,
       positions: [
         {
           id: 0,
@@ -30,11 +31,24 @@ class App extends Component {
     }))
   }
 
+  toggleList = () => {
+    this.setState(prevState => ({
+      isListDisplayed: !prevState.isListDisplayed
+    }))
+  }
+
   render () {
     return (
       <Layout>
-        <Header addPosition={this.addPosition} />
-        <Main positions={this.state.positions} />
+        <Header
+          addPosition={this.addPosition}
+          toggleList={this.toggleList}
+          isListDisplayed={this.state.isListDisplayed}
+        />
+        <Main
+          isListDisplayed={this.state.isListDisplayed}
+          positions={this.state.positions}
+        />
       </Layout>
     )
   }

@@ -4,7 +4,7 @@ import { compose, withProps } from 'recompose'
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
 
 const ContainerElem = styled.div`
-  height: 100%;
+  flex: 1;
 `
 
 const LoaderElem = styled.div`

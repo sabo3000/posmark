@@ -1,24 +1,32 @@
 import React from 'react'
-import styled from 'styled-components'
-import List, {
-  ListSubheader,
-  ListItem,
-  ListItemText
-} from 'material-ui/List'
+import styled, { css } from 'styled-components'
 
 const StyledListView = styled.div`
-  display: block;
+  height: 0;
+  width: 0;
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
+  @media screen and (orientation: portrait) {
+    ${props => props.isDisplayed && css`
+      opacity: 1;
+      height: 50%;
+    `}
+  }
+  @media screen and (orientation: landscape) {
+    ${props => props.isDisplayed && css`
+      opacity: 1;
+      width: 50%;
+    `}
+  }
 `
 
-const ListView = ({positions}) => (
-  <StyledListView>
-    <List subheader={<ListSubheader>2 marked positions</ListSubheader>}>
+const ListView = ({positions, isDisplayed}) => (
+  <StyledListView isDisplayed={isDisplayed}>
+    <ul>
       { positions.map(({id, name}) =>
-        <ListItem key={id} button>
-          <ListItemText primary={name} />
-        </ListItem>
+        <li key={id}>{name}</li>
       )}
-    </List>
+    </ul>
   </StyledListView>
 )
 

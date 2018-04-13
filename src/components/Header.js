@@ -45,6 +45,7 @@ class Header extends PureComponent {
   changeTitle = (event) => this.setState({ posTitle: event.target.value })
 
   render () {
+    const { toggleList, isListDisplayed } = this.props
     const modalActions = [
       { text: 'Close', onClick: this.closeModal, appearance: 'default' },
       { text: 'Add', onClick: this.addPosition, appearance: 'primary' }
@@ -52,7 +53,11 @@ class Header extends PureComponent {
 
     return (
       <StyledHeader>
-        <Button appearance='default' iconBefore={<ListIcon />}>
+        <Button
+          appearance='default'
+          iconBefore={<ListIcon />}
+          onClick={toggleList}
+          isSelected={isListDisplayed}>
           Show List
         </Button>
         <Button
@@ -80,7 +85,8 @@ class Header extends PureComponent {
 }
 
 Header.defaultProps = {
-  addPosition: () => {}
+  addPosition: () => {},
+  toggleList: () => {}
 }
 
 export default Header
