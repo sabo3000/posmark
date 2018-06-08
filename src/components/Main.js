@@ -16,11 +16,18 @@ const MapContainer = styled.div`
   position: relative;
 `
 
-const Main = ({positions, currentPosition, deletePosition, isListDisplayed}) => (
+const Main = ({
+  positions,
+  initialPosition,
+  currentPosition,
+  deletePosition,
+  isListDisplayed
+}) => (
   <StyledMain>
     <MapContainer>
       <MapView
         positions={positions}
+        initialPosition={initialPosition}
         currentPosition={currentPosition}
       />
     </MapContainer>

@@ -4,7 +4,8 @@ import { Layout, Header, Main, Geo } from './components'
 import '@atlaskit/css-reset'
 import './App.css'
 
-const storageKey = 'posmark'
+const keyPositions = 'positions'
+const keyLastPosition = 'lastPosition'
 
 class App extends Component {
   constructor () {
@@ -12,19 +13,19 @@ class App extends Component {
     this.state = {
       isListDisplayed: false,
       currentPosition: {},
-      positions: store.get(storageKey) || []
+      positions: store.get(keyPositions) || []
     }
   }
 
   componentDidMount = () => {
     const geo = new Geo()
-    geo.getCoords().then((coords) => {
-      this.setState({
-        currentPosition: {
-          lat: coords.latitude,
-          lng: coords.longitude
-        }
-      })
+    geo.getCoords().then(({latitude, longitude}) => {
+      const pos = {
+        lat: latitude,
+        lng: longitude
+      }
+      this.setState({currentPosition: pos})
+      store.set(keyLastPosition, pos)
     }, (error) => console.error(error))
   }
 
@@ -33,7 +34,7 @@ class App extends Component {
     this.setState(prevState => ({
       positions: [...prevState.positions, pos]
     }), () => {
-      store.set(storageKey, this.state.positions)
+      store.set(keyPositions, this.state.positions)
     })
   }
 
@@ -42,7 +43,7 @@ class App extends Component {
     this.setState(prevState => ({
       positions: prevState.positions.filter(({id}) => id !== posId)
     }), () => {
-      store.set(storageKey, this.state.positions)
+      store.set(keyPositions, this.state.positions)
     })
   }
 
@@ -61,8 +62,9 @@ class App extends Component {
           isListDisplayed={this.state.isListDisplayed}
         />
         <Main
-          currentPosition={this.state.currentPosition}
           positions={this.state.positions}
+          initialPosition={store.get(keyLastPosition)}
+          currentPosition={this.state.currentPosition}
           deletePosition={this.deletePosition}
           isListDisplayed={this.state.isListDisplayed}
         />

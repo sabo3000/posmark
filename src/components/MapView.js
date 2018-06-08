@@ -29,7 +29,7 @@ class MapView extends PureComponent {
   }
 
   render () {
-    const { google, positions, currentPosition } = this.props
+    const { google, positions, initialPosition, currentPosition } = this.props
     const { isInfoVisible, activeMarker, selectedPosition } = this.state
     const bounds = new google.maps.LatLngBounds()
     positions.map((pos) => bounds.extend(pos))
@@ -40,10 +40,7 @@ class MapView extends PureComponent {
           width: '100%',
           height: '100%'
         }}
-        initialCenter={{
-          lat: 46.94,
-          lng: 7.45
-        }}
+        initialCenter={initialPosition}
         center={currentPosition}
         onClick={this.onMapClick}>
         { positions.map(({id, name, lat, lng}) =>
