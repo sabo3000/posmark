@@ -19,9 +19,20 @@ class MapView extends PureComponent {
     })
   }
 
+  onMapClick = (props) => {
+    if (this.state.isInfoVisible) {
+      this.setState({
+        isInfoVisible: false,
+        activeMarker: null
+      })
+    }
+  }
+
   render () {
-    const { google, positions } = this.props
+    const { google, positions, currentPosition } = this.props
     const { isInfoVisible, activeMarker, selectedPosition } = this.state
+    const bounds = new google.maps.LatLngBounds()
+    positions.map((pos) => bounds.extend(pos))
     return (
       <Map
         google={google}
@@ -33,7 +44,8 @@ class MapView extends PureComponent {
           lat: 46.94,
           lng: 7.45
         }}
-        zoom={14}>
+        center={currentPosition}
+        onClick={this.onMapClick}>
         { positions.map(({id, name, lat, lng}) =>
           <Marker
             key={id}

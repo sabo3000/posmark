@@ -1,35 +1,40 @@
 import React, { Component } from 'react'
-import { Layout, Header, Main } from './components'
+import store from 'store/dist/store.modern'
+import { Layout, Header, Main, Geo } from './components'
 import '@atlaskit/css-reset'
 import './App.css'
+
+const storageKey = 'posmark'
 
 class App extends Component {
   constructor () {
     super()
     this.state = {
       isListDisplayed: false,
-      positions: [
-        {
-          id: 0,
-          name: 'Home',
-          lat: 46.9397992,
-          lng: 7.4661384
-        },
-        {
-          id: 1,
-          name: 'Urbanfish',
-          lat: 46.9481229,
-          lng: 7.4472936
-        }
-      ]
+      currentPosition: {},
+      positions: store.get(storageKey) || []
     }
+  }
+
+  componentDidMount = () => {
+    const geo = new Geo()
+    geo.getCoords().then((coords) => {
+      this.setState({
+        currentPosition: {
+          lat: coords.latitude,
+          lng: coords.longitude
+        }
+      })
+    }, (error) => console.error(error))
   }
 
   addPosition = (pos) => {
     pos.id = this.state.positions.length
     this.setState(prevState => ({
       positions: [...prevState.positions, pos]
-    }))
+    }), () => {
+      store.set(storageKey, this.state.positions)
+    })
   }
 
   toggleList = () => {
@@ -48,6 +53,7 @@ class App extends Component {
         />
         <Main
           isListDisplayed={this.state.isListDisplayed}
+          currentPosition={this.state.currentPosition}
           positions={this.state.positions}
         />
       </Layout>
