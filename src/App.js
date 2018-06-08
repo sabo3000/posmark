@@ -37,6 +37,15 @@ class App extends Component {
     })
   }
 
+  deletePosition = (event, posId) => {
+    event.preventDefault()
+    this.setState(prevState => ({
+      positions: prevState.positions.filter(({id}) => id !== posId)
+    }), () => {
+      store.set(storageKey, this.state.positions)
+    })
+  }
+
   toggleList = () => {
     this.setState(prevState => ({
       isListDisplayed: !prevState.isListDisplayed
@@ -52,9 +61,10 @@ class App extends Component {
           isListDisplayed={this.state.isListDisplayed}
         />
         <Main
-          isListDisplayed={this.state.isListDisplayed}
           currentPosition={this.state.currentPosition}
           positions={this.state.positions}
+          deletePosition={this.deletePosition}
+          isListDisplayed={this.state.isListDisplayed}
         />
       </Layout>
     )

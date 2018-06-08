@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+import DeleteIcon from 'material-ui-icons/Delete'
 
 const StyledListView = styled.div`
   opacity: 0;
@@ -25,15 +26,39 @@ const Content = styled.div`
   padding: 15px;
 `
 
-const ListView = ({positions, isDisplayed}) => (
+const Cell = styled.td`
+  :first-child{ width: 100%; }
+`
+const Link = styled.a`
+  display: flex;
+`
+
+Link.defaultProps = {
+  href: '#'
+}
+
+const ListView = ({positions, isDisplayed, deletePosition}) => (
   <StyledListView isDisplayed={isDisplayed}>
     <Content>
-      <h3>Your List of Positions</h3>
-      <ul>
-        { positions.map(({id, name}) =>
-          <li key={id}>{name}</li>
-        )}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th colSpan='2'>Your List of Positions</th>
+          </tr>
+        </thead>
+        <tbody>
+          { positions.map(({id, name}) => (
+            <tr key={id}>
+              <Cell>{name}</Cell>
+              <Cell>
+                <Link onClick={(e) => deletePosition(e, id)}>
+                  <DeleteIcon />
+                </Link>
+              </Cell>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </Content>
   </StyledListView>
 )
