@@ -1,34 +1,58 @@
-import React from 'react'
-import styled from 'styled-components'
-import { compose, withProps } from 'recompose'
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
+import React, { PureComponent } from 'react'
+import { Map, Marker, InfoWindow, GoogleApiWrapper } from 'google-maps-react'
 
-const ContainerElem = styled.div`
-  flex: 1;
-`
+class MapView extends PureComponent {
+  constructor () {
+    super()
+    this.state = {
+      isInfoVisible: false,
+      activeMarker: {},
+      selectedPosition: {}
+    }
+  }
 
-const LoaderElem = styled.div`
-  height: 100%;
-`
-const apiKey = 'AIzaSyD1aeCOtB3_LSZQED20yRlqr5-HKFZWRIQ'
+  onMarkerClick = (props, marker, event) => {
+    this.setState({
+      isInfoVisible: true,
+      activeMarker: marker,
+      selectedPosition: props
+    })
+  }
 
-const MapView = compose(
-  withProps({
-    googleMapURL: 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=' + apiKey,
-    loadingElement: <LoaderElem />,
-    containerElement: <ContainerElem />,
-    mapElement: <div style={{ height: `100%` }} />
-  }),
-  withScriptjs,
-  withGoogleMap
-)(({positions}) =>
-  <GoogleMap
-    defaultZoom={14}
-    defaultCenter={{ lat: 46.94, lng: 7.45 }}>
-    { positions.map(({id, lat, lng}) =>
-      <Marker key={id} position={{ lat: lat, lng: lng }} />
-    )}
-  </GoogleMap>
-)
+  render () {
+    const { google, positions } = this.props
+    const { isInfoVisible, activeMarker, selectedPosition } = this.state
+    return (
+      <Map
+        google={google}
+        style={{
+          width: '100%',
+          height: '100%'
+        }}
+        initialCenter={{
+          lat: 46.94,
+          lng: 7.45
+        }}
+        zoom={14}>
+        { positions.map(({id, name, lat, lng}) =>
+          <Marker
+            key={id}
+            name={name}
+            title={name}
+            position={{ lat: lat, lng: lng }}
+            onClick={this.onMarkerClick}
+          />
+        )}
+        <InfoWindow
+          marker={activeMarker}
+          visible={isInfoVisible}>
+          <h4>{ selectedPosition.name }</h4>
+        </InfoWindow>
+      </Map>
+    )
+  }
+}
 
-export default MapView
+export default GoogleApiWrapper({
+  apiKey: 'AIzaSyD1aeCOtB3_LSZQED20yRlqr5-HKFZWRIQ'
+})(MapView)
