@@ -1,4 +1,5 @@
 import React from 'react'
+import { observer } from 'mobx-react'
 import styled from 'styled-components'
 import ListView from './ListView'
 import MapView from './MapView'
@@ -30,20 +31,14 @@ const MyButton = styled(Button)`
 `
 
 const Main = ({
-  positions,
-  initialPosition,
-  currentPosition,
+  store,
   getCurrentPosition,
   deletePosition,
   isListDisplayed
 }) => (
   <StyledMain>
     <MapContainer>
-      <MapView
-        positions={positions}
-        initialPosition={initialPosition}
-        currentPosition={currentPosition}
-      />
+      <MapView {...store} />
       <MyButton
         appearance='subtle'
         iconBefore={<MyLocationIcon />}
@@ -51,15 +46,11 @@ const Main = ({
       />
     </MapContainer>
     <ListView
-      positions={positions}
+      positions={store.positions}
       isDisplayed={isListDisplayed}
       deletePosition={deletePosition}
     />
   </StyledMain>
 )
 
-Main.defaultProps = {
-  positions: [],
-  isListDisplayed: false
-}
-export default Main
+export default observer(Main)

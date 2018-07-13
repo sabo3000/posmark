@@ -1,19 +1,13 @@
 import React, { Component } from 'react'
-import store from 'store/dist/store.modern'
 import { Layout, Header, Main, Geo } from './components'
 import '@atlaskit/css-reset'
 import './App.css'
 
-const keyPositions = 'positions'
-const keyLastPosition = 'lastPosition'
-
 class App extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
-      isListDisplayed: false,
-      currentPosition: {},
-      positions: store.get(keyPositions) || []
+      isListDisplayed: false
     }
   }
 
@@ -28,27 +22,17 @@ class App extends Component {
         lat: latitude,
         lng: longitude
       }
-      this.setState({currentPosition: pos})
-      store.set(keyLastPosition, pos)
+      this.props.store.setCurrentPosition(pos)
     }, (error) => console.error(error))
   }
 
   addPosition = (pos) => {
-    pos.id = this.state.positions.length
-    this.setState(prevState => ({
-      positions: [...prevState.positions, pos]
-    }), () => {
-      store.set(keyPositions, this.state.positions)
-    })
+    this.props.store.addPosition(pos)
   }
 
   deletePosition = (event, posId) => {
     event.preventDefault()
-    this.setState(prevState => ({
-      positions: prevState.positions.filter(({id}) => id !== posId)
-    }), () => {
-      store.set(keyPositions, this.state.positions)
-    })
+    this.props.store.deletePosition(posId)
   }
 
   toggleList = () => {
@@ -66,9 +50,7 @@ class App extends Component {
           isListDisplayed={this.state.isListDisplayed}
         />
         <Main
-          positions={this.state.positions}
-          initialPosition={store.get(keyLastPosition)}
-          currentPosition={this.state.currentPosition}
+          store={this.props.store}
           getCurrentPosition={this.getCurrentPosition}
           deletePosition={this.deletePosition}
           isListDisplayed={this.state.isListDisplayed}
