@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "1.1.1"
+    "react-scripts": "^1.1.4"
   },
   "dependencies": {
     "@atlaskit/button": "^6.6.4",
@@ -13,11 +13,11 @@
     "google-maps-react": "^2.0.0",
     "material-ui": "^1.0.0-beta.33",
     "material-ui-icons": "^1.0.0-beta.17",
-    "react": "^16.3.1",
-    "react-dom": "^16.2.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
     "react-google-maps": "^9.4.5",
     "store": "^2.0.12",
-    "styled-components": "^3.2.5"
+    "styled-components": "^3.3.3"
   },
   "scripts": {
     "start": "react-scripts start",
