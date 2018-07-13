@@ -18,6 +18,10 @@ class App extends Component {
   }
 
   componentDidMount = () => {
+    this.getCurrentPosition()
+  }
+
+  getCurrentPosition = () => {
     const geo = new Geo()
     geo.getCoords().then(({latitude, longitude}) => {
       const pos = {
@@ -65,6 +69,7 @@ class App extends Component {
           positions={this.state.positions}
           initialPosition={store.get(keyLastPosition)}
           currentPosition={this.state.currentPosition}
+          getCurrentPosition={this.getCurrentPosition}
           deletePosition={this.deletePosition}
           isListDisplayed={this.state.isListDisplayed}
         />
