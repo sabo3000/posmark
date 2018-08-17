@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react'
 import { Map, Marker, InfoWindow, GoogleApiWrapper } from 'google-maps-react'
 
+const apiKey = process.env.REACT_APP_GMAPS_API_KEY
+
 class MapView extends PureComponent {
   constructor () {
     super()
@@ -63,5 +65,5 @@ class MapView extends PureComponent {
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyD1aeCOtB3_LSZQED20yRlqr5-HKFZWRIQ'
+  apiKey: apiKey
 })(MapView)
